@@ -1,7 +1,7 @@
-import Server from "./src/providers/Server";
-import {PORT,NODE_ENV} from './src/config';
+import Server from "./providers/Server";
+import {PORT,NODE_ENV} from './config';
 import express from 'express';
-import ProductoController from "./src/controllers/ProductoController";
+import ProductoController from "./controllers/ProductoController";
 
 const server = new Server({
     port:PORT,
