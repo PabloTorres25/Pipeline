@@ -1,3 +1,4 @@
+/*
 import { Request,Response } from "express";
 import AbstractController from "./AbstractController";
 import db from "../modelsNoSQL";
@@ -46,3 +47,4 @@ class AgenteController extends AbstractController{
 }
 
 export default AgenteController;
+*/
