@@ -1,83 +1,54 @@
 import { Model, Sequelize } from "sequelize";
 
-interface SiniestroAttributes {
-  idSiniestro: number;
-  fechaInicio: string;
-  fechaFin: string;
-  idAjustador: string;
-  idPersona: string;
-  idPoliza: string;
-  transcript: string;
-  idAgente: string;
-  estatus: boolean;
+interface ProductoAttributes {
+  idProducto: number;
+  nombre: string;
+  cantidad: number;
+  descipcion: string;
+  precio: number;
 }
 
 module.exports = (sequelize: Sequelize, DataTypes: any) => {
-  class Siniestro
-    extends Model<SiniestroAttributes>
-    implements SiniestroAttributes
+  class Producto
+    extends Model<ProductoAttributes>
+    implements ProductoAttributes
   {
-    public idSiniestro!: number;
-    public fechaInicio!: string;
-    public fechaFin!: string;
-    public idAjustador!: string;
-    public idPersona!: string;
-    public idPoliza!: string;
-    public transcript!: string;
-    public idAgente!: string;
-    public estatus!: boolean;
+    public idProducto!: number;
+    public nombre!: string;
+    public cantidad!: number;
+    public descipcion!: string;
+    public precio!: number;
+    
   }
-  Siniestro.init(
+  Producto.init(
     {
-      idSiniestro: {
+      idProducto: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      fechaInicio: {
+      nombre: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      fechaFin: {
+      cantidad: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      descipcion: {
         type: DataTypes.STRING,
         allowNull: true,
         defaultValue: null,
       },
-      idAjustador: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null,
-      },
-      idPersona: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null,
-      },
-      idPoliza: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null,
-      },
-      transcript: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null,
-      },
-      idAgente: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null,
-      },
-      estatus: {
-        type: DataTypes.BOOLEAN,
-        allowNull: true,
-        defaultValue: true,
+      precio: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: "Siniestro",
+      modelName: "Producto",
     }
   );
-  return Siniestro;
+  return Producto;
 };
