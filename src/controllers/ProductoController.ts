@@ -15,9 +15,17 @@ class ProductoController extends AbstractController {
   }
 
   protected initializeRoutes(): void {
+    this.router.get("/test", this.getTest.bind(this));
     //CRUD
     this.router.get("/consultar", this.getConsultar.bind(this));
     this.router.post("/crear", this.postCrear.bind(this));
+  }
+  private async getTest(req: Request, res: Response) {
+    try {
+      res.status(200).send("Producto Works");
+    } catch (error) {
+      res.status(500).send(`Error al conectar con el Siniestro ${error}`);
+    }
   }
 
   private async getConsultar(req: Request, res: Response) {
