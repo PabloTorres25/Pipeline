@@ -18,7 +18,7 @@ class ClienteController extends AbstractController{
 
     protected initializeRoutes(): void {
         //CRUD
-        this.router.get("/consultar",);
+        this.router.get("/consultar",this.getConsultarAll.bind(this));
         this.router.post("/crear",this.postCrear.bind(this));
     }
 

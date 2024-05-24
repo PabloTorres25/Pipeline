@@ -1,51 +1,56 @@
 "use strict";
-/*
-import { Request,Response } from "express";
-import AbstractController from "./AbstractController";
-import db from "../modelsNoSQL";
-
-class AgenteController extends AbstractController{
-    //Singleton
-    //Atributos de clase
-    private static _instance: AgenteController;
-    public static get instance():AgenteController{
-        if(this._instance){
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractController_1 = __importDefault(require("./AbstractController"));
+const ClienteModel_1 = __importDefault(require("../modelsNoSQL/ClienteModel"));
+class ClienteController extends AbstractController_1.default {
+    static get instance() {
+        if (this._instance) {
             return this._instance;
         }
-        this._instance = new AgenteController("agente");
+        this._instance = new ClienteController("cliente");
         return this._instance;
     }
-
-    protected initializeRoutes(): void {
-        this.router.get("/test",this.getTest.bind(this));
+    initializeRoutes() {
         //CRUD
-        //this.router.get("/consultar",);
-        this.router.post("/crear",this.postCrear.bind(this));
-        //this.router.post("/cambiar",);
-        //this.router.post("/eliminar",);
+        this.router.get("/consultar", this.getConsultarAll.bind(this));
+        this.router.post("/crear", this.postCrear.bind(this));
     }
-
-    private async postCrear(req: Request, res: Response){
-        try{
-            console.log(req.body);
-            await db.Agente.create(req.body);
-            console.log("Agente creado")
-            res.status(200).send("Agente creado");
-        }catch(err){
-            console.error(err);
-            res.status(500).send("Error al crear agente");
-        }
+    getConsultarAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Consultar poliza
+            try {
+                const polizas = yield ClienteModel_1.default.scan().exec().promise();
+                res.status(200).json(polizas[0].Items);
+            }
+            catch (error) {
+                res.status(500).send("Error al consultar las polizas: ${error}");
+            }
+        });
     }
-    private async getTest(req: Request, res: Response){
-        try{
-            console.log("AgenteController works");
-            res.status(200).send("AgenteController works");
-        }catch(err){
-            console.error(err);
-            res.status(500).send("Error en AgenteController");
-        }
+    postCrear(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const poliza = req.body;
+                console.log(poliza);
+                const result = yield ClienteModel_1.default.create(poliza);
+                res.status(200).send(result);
+            }
+            catch (error) {
+                res.status(500).send("Error al crear la poliza: ${error}");
+            }
+        });
     }
 }
-
-export default AgenteController;
-*/ 
+exports.default = ClienteController;
