@@ -1,9 +1,10 @@
-/*
 import { Request,Response } from "express";
 import AbstractController from "./AbstractController";
-import db from "../modelsNoSQL";
+import ClienteModel from "../modelsNoSQL/ClienteModel";
+import bcrypt from "bcrypt";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
-class AgenteController extends AbstractController{
+class ClienteController extends AbstractController{
     //Singleton
     //Atributos de clase
     private static _instance: AgenteController;
@@ -47,4 +48,3 @@ class AgenteController extends AbstractController{
 }
 
 export default AgenteController;
-*/
