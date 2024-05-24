@@ -7,44 +7,42 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 class ClienteController extends AbstractController{
     //Singleton
     //Atributos de clase
-    private static _instance: AgenteController;
-    public static get instance():AgenteController{
+    private static _instance: ClienteController;
+    public static get instance():ClienteController{
         if(this._instance){
             return this._instance;
         }
-        this._instance = new AgenteController("agente");
+        this._instance = new ClienteController("cliente");
         return this._instance;
     }   
 
     protected initializeRoutes(): void {
-        this.router.get("/test",this.getTest.bind(this));
         //CRUD
-        //this.router.get("/consultar",);
+        this.router.get("/consultar",);
         this.router.post("/crear",this.postCrear.bind(this));
-        //this.router.post("/cambiar",);
-        //this.router.post("/eliminar",);       
     }
 
-    private async postCrear(req: Request, res: Response){
-        try{
-            console.log(req.body);
-            await db.Agente.create(req.body);
-            console.log("Agente creado")
-            res.status(200).send("Agente creado");
-        }catch(err){
-            console.error(err);
-            res.status(500).send("Error al crear agente");
+    private async getConsultarAll(req: Request, res: Response) {
+        // Consultar poliza
+        try {
+          const polizas = await ClienteModel.scan().exec().promise();
+          res.status(200).json(polizas[0].Items);
+        } catch (error) {
+          res.status(500).send("Error al consultar las polizas: ${error}");
         }
-    }
-    private async getTest(req: Request, res: Response){
-        try{
-            console.log("AgenteController works");
-            res.status(200).send("AgenteController works");
-        }catch(err){
-            console.error(err);
-            res.status(500).send("Error en AgenteController");
+      }
+    
+      private async postCrear(req: Request, res: Response) {
+        try {
+          const poliza = req.body;
+          console.log(poliza);
+    
+          const result = await ClienteModel.create(poliza);
+          res.status(200).send(result);
+        } catch (error) {
+          res.status(500).send("Error al crear la poliza: ${error}");
         }
-    }
+      }
 }
 
-export default AgenteController;
+export default ClienteController;
