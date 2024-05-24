@@ -18,9 +18,8 @@ const ClienteModel = dynamodb.define("cliente", {
 dynamodb.createTables(function (err) {
   if (err) {
     console.error("Error creating tables: ", err);
-  } else {
-    console.log("Table Cliente has been created");
   }
+    console.log("Table Cliente has been created");
 });
 
 export default ClienteModel;

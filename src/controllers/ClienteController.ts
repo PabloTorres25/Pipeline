@@ -6,7 +6,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 
 class ClienteController extends AbstractController{
     //Singleton
-    //Atributos de clase
+    //Atributos de clase  
     private static _instance: ClienteController;
     public static get instance():ClienteController{
         if(this._instance){
@@ -23,24 +23,24 @@ class ClienteController extends AbstractController{
     }
 
     private async getConsultarAll(req: Request, res: Response) {
-        // Consultar poliza
+        // Consultar cliente
         try {
-          const polizas = await ClienteModel.scan().exec().promise();
-          res.status(200).json(polizas[0].Items);
+          const clientes = await ClienteModel.scan().exec().promise();
+          res.status(200).json(clientes[0].Items);
         } catch (error) {
-          res.status(500).send("Error al consultar las polizas: ${error}");
+          res.status(500).send("Error al consultar las clientes: ${error}");
         }
       }
     
       private async postCrear(req: Request, res: Response) {
         try {
-          const poliza = req.body;
-          console.log(poliza);
+          const cliente = req.body;
+          console.log(cliente);
     
-          const result = await ClienteModel.create(poliza);
+          const result = await ClienteModel.create(cliente);
           res.status(200).send(result);
         } catch (error) {
-          res.status(500).send("Error al crear la poliza: ${error}");
+          res.status(500).send("Error al crear la cliente: ${error}");
         }
       }
 }
